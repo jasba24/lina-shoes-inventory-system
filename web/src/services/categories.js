@@ -1,47 +1,25 @@
-import axios from "axios"
-const baseURL = "https://sena-9yju.onrender.com/api/categories"
+import apiClient, { setToken as setAuthToken } from "./api"
 
-let token = null
+const baseURL = "/categories"
 
-export const setToken = (newToken) => {
-  token = `Bearer ${newToken}`
-}
+export const setToken = (newToken) => setAuthToken(newToken)
 
 export const getAllCategories = () => {
-  return axios.get(baseURL).then(({ data }) => data)
+  return apiClient.get(baseURL).then(({ data }) => data)
 }
 
 export const createCategory = (newCategory) => {
-  const config = {
-    headers: {
-      Authorization: token,
-      "Content-Type": "multipart/form-data",
-    },
-  }
-
-  return axios.post(baseURL, newCategory, config).then((res) => {
-    const { data } = res
-    return data
-  })
+  return apiClient
+    .post(baseURL, newCategory, { headers: { "Content-Type": "multipart/form-data" } })
+    .then(({ data }) => data)
 }
 
 export const updateCategory = ({ id, formData }) => {
-  const config = {
-    headers: {
-      Authorization: token,
-      "Content-Type": "multipart/form-data",
-    },
-  }
-
-  return axios.put(`${baseURL}/${id}`, formData, config).then((res) => res.data)
+  return apiClient
+    .put(`${baseURL}/${id}`, formData, { headers: { "Content-Type": "multipart/form-data" } })
+    .then((res) => res.data)
 }
 
 export const deleteCategory = (id) => {
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-  }
-
-  return axios.delete(`${baseURL}/${id}`, config).then(({ data }) => data)
+  return apiClient.delete(`${baseURL}/${id}`).then(({ data }) => data)
 }

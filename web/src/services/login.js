@@ -1,20 +1,15 @@
-import axios from "axios"
-const baseURL = "https://sena-9yju.onrender.com/api/"
-let token = null
+import apiClient, { setToken as setAuthToken } from "./api"
+
+const baseURL = "/"
 
 export const login = async (credentials) => {
-  const { data } = await axios.post(`${baseURL}login`, credentials)
+  const { data } = await apiClient.post(`${baseURL}login`, credentials)
   return data
 }
 
-export const setToken = (newToken) => {
-  token = `Bearer ${newToken}`
-}
+export const setToken = (newToken) => setAuthToken(newToken)
 
 export const changePassword = async (credentials) => {
-  const config = {
-    headers: { Authorization: token },
-  }
-  const { data } = await axios.put(`${baseURL}users`, credentials, config)
+  const { data } = await apiClient.put(`${baseURL}users`, credentials)
   return data
 }

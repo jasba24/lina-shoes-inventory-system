@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { deleteOrder, getAllOrders, updateOrder } from "../services/orders"
-import { setToken } from "../services/orders"
+import { setToken } from "../services/api"
 import Loading from "../components/layout/loading"
 import "../components/styles/order.css"
 import { Navigate, useLocation } from "react-router-dom"

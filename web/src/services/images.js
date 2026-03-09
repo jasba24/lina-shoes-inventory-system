@@ -1,56 +1,30 @@
-import axios from "axios"
-const baseURL = "https://sena-9yju.onrender.com/api/images"
+import apiClient, { setToken as setAuthToken } from "./api"
 
-let token = null
+const baseURL = "/images"
 
-export const setToken = (newToken) => {
-  token = `Bearer ${newToken}`
-}
+export const setToken = (newToken) => setAuthToken(newToken)
 
 export const getImageById = (id) => {
-  return axios.get(`${baseURL}/${id}`).then(({ data }) => data)
+  return apiClient.get(`${baseURL}/${id}`).then(({ data }) => data)
 }
 
 export const getImagesByCategory = (route) => {
-  return axios.get(`${baseURL}/category/${route}`).then(({ data }) => data)
+  return apiClient.get(`${baseURL}/category/${route}`).then(({ data }) => data)
 }
 
 export const createImage = (newObject) => {
-  const config = {
-    headers: {
-      Authorization: token,
-      "Content-Type": "multipart/form-data",
-    },
-  }
-  return axios.post(baseURL, newObject, config).then((res) => {
-    const { data } = res
-    return data
-  })
+  return apiClient
+    .post(baseURL, newObject, { headers: { "Content-Type": "multipart/form-data" } })
+    .then(({ data }) => data)
 }
 
 export const deleteImages = (idsArray) => {
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-    data: { ids: idsArray },
-  }
-
-  return axios.delete(baseURL, config)
+  return apiClient.delete(baseURL, { data: { ids: idsArray } })
 }
 
 export const updateImage = (updatedObject) => {
-  const config = {
-    headers: {
-      Authorization: token,
-      "Content-Type": "multipart/form-data",
-    },
-  }
-
   const { id, formData } = updatedObject
-
-  return axios.put(`${baseURL}/${id}`, formData, config).then((res) => {
-    const { data } = res
-    return data
-  })
+  return apiClient
+    .put(`${baseURL}/${id}`, formData, { headers: { "Content-Type": "multipart/form-data" } })
+    .then(({ data }) => data)
 }

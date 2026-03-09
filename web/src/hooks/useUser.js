@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { setToken } from "../services/images"
+import { setToken } from "../services/api"
 import { login as loginService } from "../services/login"
 
 export const useUser = () => {

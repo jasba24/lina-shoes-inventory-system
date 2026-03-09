@@ -1,7 +1,7 @@
-import axios from 'axios'
-const baseURL = 'https://sena-9yju.onrender.com/api/users'
+import apiClient from "./api"
+const baseURL = "/users"
 
-export const createUser = async credentials => {
-  const { data } = await axios.post(baseURL, credentials)
+export const createUser = async (credentials) => {
+  const { data } = await apiClient.post(baseURL, credentials)
   return data
 }
