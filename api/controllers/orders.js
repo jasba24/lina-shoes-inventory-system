@@ -38,7 +38,7 @@ ordersRouter.get("/", userExtractor, async (req, res) => {
   }
 })
 
-ordersRouter.patch("/:id", userExtractor, express.json(), async (req, res) => {
+ordersRouter.patch("/:id", userExtractor, async (req, res) => {
   try {
     const { client, products } = req.body
     const updates = {}
@@ -72,7 +72,7 @@ ordersRouter.delete("/:id", userExtractor, async (req, res) => {
   }
 })
 
-ordersRouter.post("/", express.json(), async (req, res) => {
+ordersRouter.post("/", async (req, res) => {
   try {
     const { products } = req.body
 

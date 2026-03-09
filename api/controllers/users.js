@@ -77,7 +77,7 @@ usersRouter.delete("/:id", userExtractor, async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Erorr al eliminar al usuario", details: error.message })
+      .json({ error: "Error al eliminar al usuario", details: error.message })
   }
 })
 

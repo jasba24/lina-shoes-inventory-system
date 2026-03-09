@@ -20,27 +20,27 @@ imagesRouter.get("/", async (req, res) => {
   res.json(formatted)
 })
 
-imagesRouter.get("/:id", async (req, res, next) => {
-  const id = req.params.id
-  const image = await Image.findById(id)
-    .then((image) => {
-      if (image) {
-        const formatted = {
-          _id: image._id,
-          name: image.name,
-          category: image.category,
-          price: img.price,
-          contentType: image.contentType,
-          data: Buffer.from(image.data).toString("base64"),
-        }
+imagesRouter
+  .get("/:id", async (req, res, next) => {
+    const id = req.params.id
+    const image = await Image.findById(id)
 
-        res.json(formatted)
-      } else {
-        res.status(404).end()
+    if (image) {
+      const formatted = {
+        _id: image._id,
+        name: image.name,
+        category: image.category,
+        price: image.price,
+        contentType: image.contentType,
+        data: Buffer.from(image.data).toString("base64"),
       }
-    })
-    .catch((err) => next(err))
-})
+
+      res.json(formatted)
+    } else {
+      res.status(404).end()
+    }
+  })
+  .catch((err) => next(err))
 
 imagesRouter.get("/category/:category", async (req, res, next) => {
   const category = req.params.category
@@ -145,7 +145,7 @@ imagesRouter.put(
         .status(500)
         .json({ message: "Error al actualizar imagen", details: error.message })
     }
-  }
+  },
 )
 
 module.exports = imagesRouter

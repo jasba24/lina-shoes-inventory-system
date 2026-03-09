@@ -17,13 +17,13 @@ const ordersRouter = require("./controllers/orders")
 const app = express()
 
 app.use(cors())
+app.use(express.json())
 app.use(logger)
 
 app.use("/api/images", imagesRouter)
 app.use("/api/categories", categoriesRouter)
 app.use("/api/orders", ordersRouter)
 
-app.use(express.json())
 app.use("/api/users", usersRouter)
 app.use("/api/login", loginRouter)
 
