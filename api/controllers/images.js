@@ -40,7 +40,6 @@ imagesRouter
       res.status(404).end()
     }
   })
-  .catch((err) => next(err))
 
 imagesRouter.get("/category/:category", async (req, res, next) => {
   const category = req.params.category
